@@ -1,4 +1,3 @@
-import eccodes
 import eccodes as ec
 import numpy as np
 

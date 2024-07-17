@@ -22,10 +22,25 @@ inca_projection_string = '+proj=lcc +lat_1=49.83333333333334 +lat_2=51.166666666
 # The projection string for the pySTEPS data
 nwc_projection_string =  '+proj=lcc +lat_1=49.83333333333334 +lat_2=51.16666666666666 +lat_0=50.797815 +lon_0=4.359215833333333 +x_0=649328 +y_0=665262 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs'
 # The number of members to plot over time
-members = 1
+members = 2
 # The base length of time over which to plot
 timeBase = 60
 # The length of the time steps
 timeStep = 5
 
-importer_rmi_xxx(filename, startdate, gribPath, topo, dir_gif, keys, inca_projection_string, nwc_projection_string, members, timeBase, timeStep)
+array_list = precipitation_type_calculator(filename, startdate, gribPath, topo, keys, inca_projection_string, nwc_projection_string, members, timeBase, timeStep)
+
+print(array_list)
+# Build gif
+# kargs = {'duration': 0.4}
+# with imageio.get_writer(
+#     os.path.join(dir_gif, (
+#             r'INCA_mem_' + ('mean_' if member == mean_idx else '') + str(member) + '_' + startdate.strftime(
+#         '%Y%m%d%H%M') + '.gif')), mode='I',
+#     **kargs) as writer:
+#         for filename in filenames:
+#                 image = imageio.imread_v2(os.path.join(dir_gif, filename))
+#                 writer.append_data(image)
+#
+# # Close gif writer
+# writer.close()
