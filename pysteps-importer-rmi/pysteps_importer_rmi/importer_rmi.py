@@ -40,14 +40,15 @@ def importer_rmi_xxx(filename,
     Parameters
     ----------
     filename : str
-        Name of the NetCDF file to import.
+        Name of the NetCDF file to import. The NetCDF files and the Grib files must be for the same date and time.
 
     startdate : datetime
         The time and date of the inca grib files in the format "%Y%m%d%H%M" e.g 202305010000 for midnight on the 1st of
         May 2023.
 
     gribPath : str
-        The file path to the directory which stores the inca grib files.
+        The file path to the directory which stores the inca grib files. Grib files should be of the .grb format.
+        Snow level (ZS), temperature (TT), and ground temperature (TG) files are required.
 
     topoFilename : str
         The path to the INCA topography file. The topography file is required to be in a text readable format such as
@@ -205,7 +206,9 @@ def importer_rmi_xxx(filename,
     R_inca_ZS, _ = reproject_grids(R_inca_ZS, r_nwc[0, 0, :, :], metadata_inca, metadata_nwc)
     R_inca_TT, _ = reproject_grids(R_inca_TT, r_nwc[0, 0, :, :], metadata_inca, metadata_nwc)
     R_inca_TG, _ = reproject_grids(R_inca_TG, r_nwc[0, 0, :, :], metadata_inca, metadata_nwc)
-    topo_grid, _ = reproject_grids(np.array([topo_grid]), r_nwc[0, 0, :, :], metadata_inca, metadata_nwc)
+    # The topography file is not required to be interpolated if it is already of the shape matching the grib files,
+    # i.e (591, 601)
+    #topo_grid, _ = reproject_grids(np.array([topo_grid]), r_nwc[0, 0, :, :], metadata_inca, metadata_nwc)
     print('Reprojection done')
 
     # --------------------------------------------------------------------------
@@ -304,11 +307,9 @@ def importer_rmi_xxx(filename,
     print("--- finished plotting ---")
     print("--- %s seconds ---" % (time.time() - start_time))
 
-    # test plots
-    # plot_ptype(np.array(ptype_mean), metadata_inca, 0, timestamps_idxs[0], dir_gif)
-    # plot_ptype(np.array(R_inca_ZS[0]), metadata_inca, 0, timestamps_idxs[0], dir_gif)
+    plot_ptype(np.array(ptype_mean), metadata_inca, 0, timestamps_idxs[0], dir_gif)
 
-    precip = filenames[0]
+    precip = np.array(ptype_mean)
 
     quality = None
 

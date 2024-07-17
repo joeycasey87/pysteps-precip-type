@@ -4,7 +4,7 @@ from importer_rmi import *
 # Specify the input parameters
 
 # NetCDF4 file
-filename = "C:\\Users\\josep\\OneDrive\\Documents\\Internship_RMI\\Hackathon_test_data\\blended_nowcast.nc"
+filename = "C:\\Users\\josep\\OneDrive\\Documents\\Internship_RMI\\Hackathon_test_data\\blended_nowcast_date_shifted.nc"
 # Start date and time of the data
 startdate = datetime.datetime.strptime('202201080000', "%Y%m%d%H%M")
 # Path to the directory where the INCA data files are stored
