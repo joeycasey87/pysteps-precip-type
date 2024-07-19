@@ -68,7 +68,8 @@ def precipitation_type_calculator(filename,
         The step for the time period. (min)
 
     topo_interpolation = boolean
-        Whether the topography requires interpolation. Default no, but can be adjusted to yes.
+        Whether the topography data requires interpolation. Default no, but can be adjusted to yes.
+        The topography data will require interpolation if it does not already have the same shape as that of the weather model data.
 
     desired_output = str
         The desired output is an indicator used by the user to indicate their desired output parameter.
